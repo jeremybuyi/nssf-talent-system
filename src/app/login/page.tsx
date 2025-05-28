@@ -1,15 +1,15 @@
 // src/app/login/page.tsx
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Eye, EyeOff, Building2 } from 'lucide-react'
+import { Eye, EyeOff, Building2, Play } from 'lucide-react'
 import Link from 'next/link'
 
 export default function LoginPage() {
@@ -18,7 +18,12 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [isConfigured, setIsConfigured] = useState(true)
   const router = useRouter()
+
+  useEffect(() => {
+    setIsConfigured(isSupabaseConfigured())
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -43,6 +48,11 @@ export default function LoginPage() {
     }
   }
 
+  const handleDemoAccess = () => {
+    // For demo mode, directly navigate to dashboard
+    router.push('/dashboard')
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-nssf-link-water to-white flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
@@ -59,12 +69,26 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {/* Demo Mode Alert */}
+        {!isConfigured && (
+          <Alert className="border-blue-200 bg-blue-50">
+            <Play className="h-4 w-4 text-blue-600" />
+            <AlertDescription className="text-blue-800">
+              <strong>Demo Mode:</strong> Experience the full interface with sample data. 
+              No registration required for demonstration purposes.
+            </AlertDescription>
+          </Alert>
+        )}
+
         {/* Login Form */}
         <Card className="nssf-card">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-geist">Welcome back</CardTitle>
             <p className="text-sm text-gray-600">
-              Enter your credentials to continue
+              {isConfigured 
+                ? 'Enter your credentials to continue'
+                : 'Try the demo or enter credentials if available'
+              }
             </p>
           </CardHeader>
           <CardContent>
@@ -133,13 +157,28 @@ export default function LoginPage() {
                 </Link>
               </div>
 
-              <Button
-                type="submit"
-                className="w-full nssf-button-primary"
-                disabled={loading}
-              >
-                {loading ? 'Signing in...' : 'Sign In'}
-              </Button>
+              <div className="space-y-3">
+                <Button
+                  type="submit"
+                  className="w-full nssf-button-primary"
+                  disabled={loading}
+                >
+                  {loading ? 'Signing in...' : 'Sign In'}
+                </Button>
+
+                {/* Demo Access Button */}
+                {!isConfigured && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full border-primary text-primary hover:bg-primary hover:text-white"
+                    onClick={handleDemoAccess}
+                  >
+                    <Play className="h-4 w-4 mr-2" />
+                    Access Demo Dashboard
+                  </Button>
+                )}
+              </div>
             </form>
 
             <div className="mt-6 text-center">
@@ -153,6 +192,20 @@ export default function LoginPage() {
                 </Link>
               </p>
             </div>
+
+            {/* Demo Information */}
+            {!isConfigured && (
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <h4 className="text-sm font-medium text-gray-900 mb-2">Demo Features Available:</h4>
+                <ul className="text-xs text-gray-600 space-y-1">
+                  <li>• Complete recruitment dashboard interface</li>
+                  <li>• Sample applications and job positions</li>
+                  <li>• Training and development modules</li>
+                  <li>• Mobile-responsive design showcase</li>
+                  <li>• NSSF professional branding</li>
+                </ul>
+              </div>
+            )}
           </CardContent>
         </Card>
 
