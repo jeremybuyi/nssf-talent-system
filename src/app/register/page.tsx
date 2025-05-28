@@ -125,6 +125,8 @@ export default function RegisterPage() {
                     <SelectItem value="hr_admin">HR Administrator</SelectItem>
                     <SelectItem value="department_head">Department Head</SelectItem>
                     <SelectItem value="training_editor">Training Editor</SelectItem>
+                    <SelectItem value="it_support">IT Support</SelectItem>
+                    <SelectItem value="tender_applicant">Tender Applicant</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

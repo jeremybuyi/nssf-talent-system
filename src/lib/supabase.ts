@@ -25,7 +25,7 @@ export const isSupabaseConfigured = (): boolean => {
 }
 
 // Types for our basic MVP
-export type UserRole = 'admin' | 'hr_admin' | 'department_head' | 'training_editor' | 'applicant' | 'tender_applicant'
+export type UserRole = 'admin' | 'hr_admin' | 'department_head' | 'training_editor' | 'applicant' | 'tender_applicant' | 'it_support'
 
 export interface UserProfile {
   id: string

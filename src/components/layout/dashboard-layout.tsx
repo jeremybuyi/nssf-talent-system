@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { useAuthStore } from '@/store/auth-store'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
@@ -28,7 +28,8 @@ import {
   X,
   Home,
   UserCheck,
-  BriefcaseIcon
+  BriefcaseIcon,
+  AlertTriangle
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -48,45 +49,86 @@ const navigation = [
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user, profile, setUser, setProfile, logout } = useAuthStore()
   const router = useRouter()
 
   useEffect(() => {
+    setMounted(true)
+    
+    // Skip auth if Supabase is not configured (for demo purposes)
+    if (!isSupabaseConfigured()) {
+      // Set mock user for demo
+      setProfile({
+        id: 'demo-user',
+        email: 'demo@nssf.ug',
+        first_name: 'Demo',
+        last_name: 'User',
+        role: 'hr_admin',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+      return
+    }
+
     const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session?.user) {
-        setUser(session.user)
-        // For MVP, we'll mock the profile data
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session?.user) {
+          setUser(session.user)
+          // For MVP, we'll mock the profile data
+          setProfile({
+            id: session.user.id,
+            email: session.user.email || '',
+            first_name: 'John',
+            last_name: 'Doe',
+            role: 'hr_admin',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          })
+        } else {
+          router.push('/login')
+        }
+      } catch (error) {
+        console.error('Session error:', error)
+        // Set demo user if there's an error
         setProfile({
-          id: session.user.id,
-          email: session.user.email || '',
-          first_name: 'John',
-          last_name: 'Doe',
+          id: 'demo-user',
+          email: 'demo@nssf.ug',
+          first_name: 'Demo',
+          last_name: 'User',
           role: 'hr_admin',
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         })
-      } else {
-        router.push('/login')
       }
     }
 
     getSession()
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_OUT' || !session) {
-          logout()
-          router.push('/login')
+    // Only set up auth listener if Supabase is configured
+    if (isSupabaseConfigured()) {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(
+        async (event, session) => {
+          if (event === 'SIGNED_OUT' || !session) {
+            logout()
+            router.push('/login')
+          }
         }
-      }
-    )
-
-    return () => subscription.unsubscribe()
+      )
+      return () => subscription.unsubscribe()
+    }
   }, [setUser, setProfile, logout, router])
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    if (isSupabaseConfigured()) {
+      await supabase.auth.signOut()
+    } else {
+      // For demo mode, just clear the profile
+      logout()
+      router.push('/login')
+    }
   }
 
   const getRoleColor = (role: string) => {
@@ -95,6 +137,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       case 'hr_admin': return 'bg-blue-100 text-blue-800'
       case 'department_head': return 'bg-green-100 text-green-800'
       case 'training_editor': return 'bg-purple-100 text-purple-800'
+      case 'it_support': return 'bg-orange-100 text-orange-800'
+      case 'tender_applicant': return 'bg-indigo-100 text-indigo-800'
       default: return 'bg-gray-100 text-gray-800'
     }
   }
@@ -103,7 +147,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     return role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
   }
 
-  if (!user || !profile) {
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  if (!profile) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
@@ -113,6 +165,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Demo Mode Warning */}
+      {!isSupabaseConfigured() && (
+        <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-2">
+          <div className="flex items-center text-yellow-800">
+            <AlertTriangle className="h-4 w-4 mr-2" />
+            <span className="text-sm">Demo Mode: Supabase not configured. Configure environment variables for full functionality.</span>
+          </div>
+        </div>
+      )}
+
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">

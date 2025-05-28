@@ -40,7 +40,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const { profile } = get()
     if (!profile) return false
     
-    const adminRoles: UserRole[] = ['admin', 'hr_admin', 'department_head', 'training_editor']
+    const adminRoles: UserRole[] = ['admin', 'hr_admin', 'department_head', 'training_editor', 'it_support']
     return adminRoles.includes(profile.role)
   }
 }))
