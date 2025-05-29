@@ -186,8 +186,8 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Recent Applications */}
           <Card className="nssf-card">
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -221,6 +221,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
+          {/* Training Programs */}
           <Card className="nssf-card">
             <CardHeader>
               <CardTitle>Training & Upskilling Programmes</CardTitle>
