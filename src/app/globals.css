@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss/preflight";
 @import "tailwindcss/utilities";
+@import "tailwindcss/theme";
 
 @layer base {
   :root {
@@ -136,13 +137,189 @@
   background: #94a3b8;
 }
 
-/* Mobile fixes only */
+/* Mobile Responsiveness Fixes */
 @media (max-width: 768px) {
-  main {
-    padding: 1.5rem;
+  .lg\:pl-64 {
+    padding-left: 0 !important;
   }
   
+  /* Prevent horizontal scroll */
   body, html {
     overflow-x: hidden;
+  }
+  
+  /* Mobile padding fix */
+  main.p-4.sm\:p-6 {
+    padding: 1.25rem !important;
+  }
+  
+  /* Card responsiveness */
+  .grid.grid-cols-1.md\:grid-cols-2,
+  .grid.grid-cols-1.lg\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  .grid.grid-cols-1.md\:grid-cols-4,
+  .grid.grid-cols-1.md\:grid-cols-5 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Text size fixes */
+  .text-3xl {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+  
+  .text-xl {
+    font-size: 1.125rem !important;
+    line-height: 1.75rem !important;
+  }
+  
+  .text-lg {
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+  }
+  
+  /* Header button fixes */
+  .flex.space-x-2 {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  
+  .flex.flex-col.sm\:flex-row.gap-2 button {
+    width: 100% !important;
+  }
+  
+  /* Form control fixes */
+  .flex.flex-col.md\:flex-row {
+    gap: 0.75rem !important;
+  }
+  
+  .w-full.md\:w-48,
+  .w-full.md\:w-40,
+  .w-full.md\:w-52 {
+    width: 100% !important;
+  }
+  
+  /* Card padding fixes */
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  .p-4 {
+    padding: 0.75rem !important;
+  }
+  
+  .px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .py-6 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  /* Badge and text wrapping */
+  .flex.flex-wrap.gap-1 {
+    gap: 0.25rem !important;
+  }
+  
+  /* Application/talent card fixes */
+  .grid.grid-cols-2.md\:grid-cols-4 {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+  
+  .grid.grid-cols-1.md\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Button container fixes */
+  .flex.space-x-2 {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  
+  .flex.flex-col.space-y-2 {
+    width: 100% !important;
+  }
+  
+  /* Stat card layout */
+  .grid.grid-cols-1.md\:grid-cols-4 .text-2xl,
+  .grid.grid-cols-1.md\:grid-cols-5 .text-2xl {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Filter section improvements */
+  .flex.flex-col.md\:flex-row.gap-4 > * {
+    width: 100% !important;
+  }
+  
+  /* Ensure tables/content don't overflow */
+  .overflow-x-auto {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Avatar and user info fixes */
+  .flex.items-center.space-x-4 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    space-x: 0 !important;
+    gap: 0.75rem !important;
+  }
+  
+  .flex.items-center.space-x-3 {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* Extra small screens (phones in portrait) */
+@media (max-width: 480px) {
+  .grid.grid-cols-1.md\:grid-cols-4,
+  .grid.grid-cols-1.md\:grid-cols-5 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Even smaller text on tiny screens */
+  .text-3xl {
+    font-size: 1.25rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.125rem !important;
+  }
+  
+  /* Compact spacing */
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .space-y-4 > * + * {
+    margin-top: 0.75rem !important;
+  }
+  
+  /* Card content even more compact */
+  .p-6 {
+    padding: 0.75rem !important;
+  }
+  
+  .p-4 {
+    padding: 0.5rem !important;
+  }
+  
+  /* Sidebar adjustments for small screens */
+  .w-64 {
+    width: 100% !important;
   }
 }
