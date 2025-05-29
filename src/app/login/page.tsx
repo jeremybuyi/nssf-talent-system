@@ -9,8 +9,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Eye, EyeOff, Building2, Play } from 'lucide-react'
+import { Eye, EyeOff, Play } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -19,6 +20,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [isConfigured, setIsConfigured] = useState(true)
+  const [logoError, setLogoError] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -53,15 +55,35 @@ export default function LoginPage() {
     router.push('/dashboard')
   }
 
+  const handleLogoError = () => {
+    setLogoError(true)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-nssf-link-water to-white flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
         {/* Logo and Header */}
         <div className="text-center">
-          <div className="mx-auto h-16 w-16 bg-primary rounded-xl flex items-center justify-center mb-4">
-            <Building2 className="h-8 w-8 text-white" />
+          <div className="mx-auto h-16 w-16 bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg">
+            {!logoError ? (
+              <Image 
+                src="/logo.png" 
+                alt="NSSF Logo" 
+                width={48}
+                height={48}
+                className="object-contain"
+                onError={handleLogoError}
+              />
+            ) : (
+              <div 
+                className="h-12 w-12 bg-[#145fa7] rounded-lg flex items-center justify-center"
+                style={{ fontSize: '1.5rem', color: 'white', fontWeight: 'bold' }}
+              >
+                NSSF
+              </div>
+            )}
           </div>
-          <h1 className="text-3xl font-geist font-bold nssf-text-gradient">
+          <h1 className="text-3xl font-geist font-bold" style={{ color: '#145fa7' }}>
             NSSF Talent Hub
           </h1>
           <p className="text-gray-600 mt-2">
@@ -151,7 +173,8 @@ export default function LoginPage() {
                 </div>
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-primary hover:underline"
+                  className="text-sm hover:underline"
+                  style={{ color: '#145fa7' }}
                 >
                   Forgot password?
                 </Link>
@@ -160,7 +183,10 @@ export default function LoginPage() {
               <div className="space-y-3">
                 <Button
                   type="submit"
-                  className="w-full nssf-button-primary"
+                  className="w-full text-white font-medium"
+                  style={{ backgroundColor: '#28a745' }}
+                  onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = '#218838'}
+                  onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = '#28a745'}
                   disabled={loading}
                 >
                   {loading ? 'Signing in...' : 'Sign In'}
@@ -171,7 +197,22 @@ export default function LoginPage() {
                   <Button
                     type="button"
                     variant="outline"
-                    className="w-full border-primary text-primary hover:bg-primary hover:text-white"
+                    className="w-full text-white font-medium"
+                    style={{ 
+                      borderColor: '#145fa7', 
+                      backgroundColor: '#145fa7',
+                      color: 'white'
+                    }}
+                    onMouseEnter={(e) => {
+                      const element = e.currentTarget as HTMLElement;
+                      element.style.backgroundColor = '#0f4d8c';
+                      element.style.borderColor = '#0f4d8c';
+                    }}
+                    onMouseLeave={(e) => {
+                      const element = e.currentTarget as HTMLElement;
+                      element.style.backgroundColor = '#145fa7';
+                      element.style.borderColor = '#145fa7';
+                    }}
                     onClick={handleDemoAccess}
                   >
                     <Play className="h-4 w-4 mr-2" />
@@ -186,7 +227,8 @@ export default function LoginPage() {
                 Don&apos;t have an account?{' '}
                 <Link
                   href="/register"
-                  className="text-primary hover:underline font-medium"
+                  className="font-medium hover:underline"
+                  style={{ color: '#145fa7' }}
                 >
                   Register here
                 </Link>

@@ -17,7 +17,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import {
-  Building2,
   Users,
   FileText,
   GraduationCap,
@@ -32,6 +31,7 @@ import {
   AlertTriangle
 } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -50,8 +50,8 @@ const navigation = [
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { user, profile, setUser, setProfile, logout } = useAuthStore()
+  const [logoError, setLogoError] = useState(false)
+  const { profile, setUser, setProfile, logout } = useAuthStore()
   const router = useRouter()
 
   useEffect(() => {
@@ -117,6 +117,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           }
         }
       )
+
       return () => subscription.unsubscribe()
     }
   }, [setUser, setProfile, logout, router])
@@ -129,6 +130,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       logout()
       router.push('/login')
     }
+  }
+
+  const handleLogoError = () => {
+    setLogoError(true)
   }
 
   const getRoleColor = (role: string) => {
@@ -190,10 +195,34 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* Logo */}
           <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
-              <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
-                <Building2 className="h-5 w-5 text-white" />
+              <div className="h-8 w-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                {!logoError ? (
+                  <Image
+                    src="/logo.png"
+                    alt="NSSF Logo"
+                    width={24}
+                    height={24}
+                    className="object-contain"
+                    onError={handleLogoError}
+                  />
+                ) : (
+                  <div
+                    className="h-6 w-6 rounded-lg flex items-center justify-center"
+                    style={{
+                      backgroundColor: '#145fa7',
+                      color: 'white',
+                      fontSize: '0.75rem',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    NSSF
+                  </div>
+                )}
               </div>
-              <span className="text-lg font-geist font-semibold nssf-text-gradient">
+              <span
+                className="text-lg font-geist font-semibold"
+                style={{ color: '#145fa7' }}
+              >
                 NSSF Talent
               </span>
             </div>
@@ -251,7 +280,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             >
               <Menu className="h-6 w-6 text-gray-600" />
             </button>
-
             <div className="flex items-center space-x-4">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
