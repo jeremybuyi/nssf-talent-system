@@ -185,21 +185,21 @@ export default function TalentPoolPage() {
     <DashboardLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-geist font-bold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-geist font-bold text-gray-900">
               Talent Pool
             </h1>
             <p className="text-gray-600 mt-1">
               Manage your candidate database and talent pipeline
             </p>
           </div>
-          <div className="flex space-x-2">
-            <Button variant="outline">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button variant="outline" size="sm">
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
-            <Button style={{ backgroundColor: '#28a745' }} className="text-white">
+            <Button style={{ backgroundColor: '#28a745' }} className="text-white" size="sm">
               <Users className="h-4 w-4 mr-2" />
               Add Talent
             </Button>

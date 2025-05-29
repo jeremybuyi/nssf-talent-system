@@ -183,16 +183,16 @@ export default function PositionsPage() {
     <DashboardLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-geist font-bold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-geist font-bold text-gray-900">
               Job Positions
             </h1>
             <p className="text-gray-600 mt-1">
               Manage open positions and recruitment campaigns
             </p>
           </div>
-          <Button style={{ backgroundColor: '#28a745' }} className="text-white">
+          <Button style={{ backgroundColor: '#28a745' }} className="text-white" size="sm">
             <Plus className="h-4 w-4 mr-2" />
             Create Position
           </Button>

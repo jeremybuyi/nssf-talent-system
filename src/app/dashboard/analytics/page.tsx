@@ -84,16 +84,16 @@ export default function AnalyticsPage() {
     <DashboardLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-geist font-bold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-geist font-bold text-gray-900">
               Analytics & Reports
             </h1>
             <p className="text-gray-600 mt-1">
               Track recruitment performance and hiring insights
             </p>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Select value={dateRange} onValueChange={setDateRange}>
               <SelectTrigger className="w-40">
                 <SelectValue />
@@ -105,7 +105,7 @@ export default function AnalyticsPage() {
                 <SelectItem value="12months">Last 12 Months</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline">
+            <Button variant="outline" size="sm">
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
