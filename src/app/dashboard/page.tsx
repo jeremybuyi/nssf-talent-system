@@ -103,19 +103,19 @@ const formatStatus = (status: string) => {
 export default function DashboardPage() {
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="flex flex-col space-y-6">
         {/* Header */}
-        <div>
+        <div className="flex flex-col space-y-2">
           <h1 className="text-3xl font-geist font-bold text-gray-900">
             Recruitment Management
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600">
             Manage job applications and talent pool in one place.
           </p>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Stats Cards - Proper Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="nssf-card">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
@@ -187,16 +187,17 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Content Grid - Two Column Layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {/* Recent Applications */}
           <Card className="nssf-card">
             <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>Recent Applications</span>
+              <div className="flex items-center justify-between">
+                <CardTitle>Recent Applications</CardTitle>
                 <Button variant="outline" size="sm">
                   View All
                 </Button>
-              </CardTitle>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

@@ -175,7 +175,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-2">
           <div className="flex items-center text-yellow-800">
             <AlertTriangle className="h-4 w-4 mr-2" />
-            <span className="text-sm">Demo Mode: Supabase not configured. Configure environment variables for full functionality.</span>
+            <span className="text-sm">Demo mode: Please log in for full functionality.</span>
           </div>
         </div>
       )}
