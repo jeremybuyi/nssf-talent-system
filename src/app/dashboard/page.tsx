@@ -102,160 +102,156 @@ const formatStatus = (status: string) => {
 export default function DashboardPage() {
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50 p-6">
-        <div className="max-w-7xl mx-auto space-y-8">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-geist font-bold text-gray-900 mb-2">
-              Recruitment Management
-            </h1>
-            <p className="text-gray-600">
-              Manage job applications and talent pool in one place.
-            </p>
-          </div>
+      <div className="space-y-6">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-geist font-bold text-gray-900">
+            Recruitment Management
+          </h1>
+          <p className="text-gray-600 mt-1">
+            Manage job applications and talent pool in one place.
+          </p>
+        </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="nssf-card h-full">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  Total Applications
-                </CardTitle>
-                <FileText className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
-                  {mockStats.totalApplications.toLocaleString()}
-                </div>
-                <div className="flex items-center text-xs text-green-600 mt-1">
-                  <ArrowUpRight className="h-3 w-3 mr-1" />
-                  +{mockStats.applicationsChange} from last month
-                </div>
-              </CardContent>
-            </Card>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="nssf-card">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Total Applications
+              </CardTitle>
+              <FileText className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900">
+                {mockStats.totalApplications.toLocaleString()}
+              </div>
+              <div className="flex items-center text-xs text-green-600 mt-1">
+                <ArrowUpRight className="h-3 w-3 mr-1" />
+                +{mockStats.applicationsChange} from last month
+              </div>
+            </CardContent>
+          </Card>
 
-            <Card className="nssf-card h-full">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  Open Positions
-                </CardTitle>
-                <BriefcaseIcon className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
-                  {mockStats.openPositions}
-                </div>
-                <div className="text-xs text-gray-600 mt-1">
-                  Across {mockStats.positionsAcrossDepts} departments
-                </div>
-              </CardContent>
-            </Card>
+          <Card className="nssf-card">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Open Positions
+              </CardTitle>
+              <BriefcaseIcon className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900">
+                {mockStats.openPositions}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">
+                Across {mockStats.positionsAcrossDepts} departments
+              </div>
+            </CardContent>
+          </Card>
 
-            <Card className="nssf-card h-full">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  Shortlisted
-                </CardTitle>
-                <UserCheck className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
-                  {mockStats.shortlisted}
-                </div>
-                <div className="text-xs text-gray-600 mt-1">
-                  {mockStats.pendingInterviews} pending interviews
-                </div>
-              </CardContent>
-            </Card>
+          <Card className="nssf-card">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Shortlisted
+              </CardTitle>
+              <UserCheck className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900">
+                {mockStats.shortlisted}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">
+                {mockStats.pendingInterviews} pending interviews
+              </div>
+            </CardContent>
+          </Card>
 
-            <Card className="nssf-card h-full">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  Talent Pool
-                </CardTitle>
-                <Users className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
-                  {mockStats.talentPool.toLocaleString()}
-                </div>
-                <div className="flex items-center text-xs text-green-600 mt-1">
-                  <ArrowUpRight className="h-3 w-3 mr-1" />
-                  +{mockStats.talentPoolChange} this quarter
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="nssf-card">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Talent Pool
+              </CardTitle>
+              <Users className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900">
+                {mockStats.talentPool.toLocaleString()}
+              </div>
+              <div className="flex items-center text-xs text-green-600 mt-1">
+                <ArrowUpRight className="h-3 w-3 mr-1" />
+                +{mockStats.talentPoolChange} this quarter
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-          {/* Content Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Recent Applications */}
-            <Card className="nssf-card h-full">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Recent Applications</CardTitle>
-                  <Button variant="outline" size="sm">
-                    View All
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {mockRecentApplications.map((app) => (
-                    <div key={app.id} className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-medium text-gray-900">{app.name}</h4>
-                          <Badge variant="secondary" className={`text-xs ${getStatusColor(app.status)}`}>
-                            {formatStatus(app.status)}
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-gray-600">{app.position}</p>
-                        <div className="flex items-center text-xs text-gray-500 mt-1">
-                          <span className="mr-3">{app.department}</span>
-                          <Clock className="h-3 w-3 mr-1" />
-                          {app.appliedAt}
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="nssf-card">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle>Recent Applications</CardTitle>
+                <Button variant="outline" size="sm">
+                  View All
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {mockRecentApplications.map((app) => (
+                  <div key={app.id} className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <h4 className="font-medium text-gray-900">{app.name}</h4>
+                        <Badge variant="secondary" className={`text-xs ${getStatusColor(app.status)}`}>
+                          {formatStatus(app.status)}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-gray-600">{app.position}</p>
+                      <div className="flex items-center text-xs text-gray-500 mt-1">
+                        <span className="mr-3">{app.department}</span>
+                        <Clock className="h-3 w-3 mr-1" />
+                        {app.appliedAt}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="nssf-card">
+            <CardHeader>
+              <CardTitle>Training & Upskilling Programmes</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {mockTrainingPrograms.map((program) => (
+                  <div key={program.id} className="p-4 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-2xl">{program.icon}</span>
+                        <div>
+                          <h4 className="font-medium text-gray-900">{program.title}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{program.description}</p>
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Training Programs */}
-            <Card className="nssf-card h-full">
-              <CardHeader>
-                <CardTitle>Training & Upskilling Programmes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {mockTrainingPrograms.map((program) => (
-                    <div key={program.id} className="p-4 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="flex items-center space-x-3">
-                          <span className="text-2xl">{program.icon}</span>
-                          <div>
-                            <h4 className="font-medium text-gray-900">{program.title}</h4>
-                            <p className="text-sm text-gray-600 mt-1">{program.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between mt-3">
-                        <span className="text-sm text-gray-500">
-                          {program.participants} participants
-                        </span>
-                        <Button variant="outline" size="sm">
-                          {program.title === 'Professional Certifications' ? 'View Programmes' :
-                           program.title === 'Internal Training' ? 'Manage Training' : 'Join Programme'}
-                        </Button>
-                      </div>
+                    <div className="flex items-center justify-between mt-3">
+                      <span className="text-sm text-gray-500">
+                        {program.participants} participants
+                      </span>
+                      <Button variant="outline" size="sm">
+                        {program.title === 'Professional Certifications' ? 'View Programmes' :
+                         program.title === 'Internal Training' ? 'Manage Training' : 'Join Programme'}
+                      </Button>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </DashboardLayout>

@@ -148,15 +148,9 @@
     overflow-x: hidden;
   }
   
-  /* Main container padding - CRITICAL FIX */
-  .lg\:pl-64 main {
-    padding: 1.5rem !important;
-  }
-  
-  /* All dashboard pages padding */
-  .space-y-6 {
-    padding-left: 1.5rem !important;
-    padding-right: 1.5rem !important;
+  /* Mobile padding fix */
+  main.p-4.sm\:p-6 {
+    padding: 1.25rem !important;
   }
   
   /* Card responsiveness */
