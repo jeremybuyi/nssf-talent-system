@@ -136,14 +136,12 @@
   background: #94a3b8;
 }
 
-/* Mobile Responsiveness - Minimal Fixes Only */
+/* Mobile fixes only */
 @media (max-width: 768px) {
-  /* Ensure main content has proper padding on mobile */
   main {
     padding: 1.5rem;
   }
   
-  /* Prevent horizontal scroll */
   body, html {
     overflow-x: hidden;
   }
